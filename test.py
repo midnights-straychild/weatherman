@@ -9,6 +9,7 @@ def init():
     initFlask()
 
 def initFlask():
+    
     """ Init Web Layer """
     app = Flask(__name__)
 
