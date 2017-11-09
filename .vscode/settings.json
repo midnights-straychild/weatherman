@@ -15,10 +15,11 @@
         "KnisterPeter.vscode-github",
         "peakchen90.open-html-in-browser",
         "webstp.extension-manager",
-        "zhuangtongfa.Material-theme"
+        "zhuangtongfa.Material-theme",
+        "thekalinga.bootstrap4-vscode"
     ],
     "path-intellisense.mappings": {
-        "/js": "${workspaceRoot}/htdocs/js",
-        "/css": "${workspaceRoot}/htdocs/css"
+        "/js": "/htdocs/js",
+        "/css": "/htdocs/css"
     }
 }
