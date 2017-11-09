@@ -1,9 +1,34 @@
-<html>
-    <head>
-        <title>Weatherman</title>
-        <link type="text/css" rel="stylesheet" href="css/main.css">
-    </head>
-    <body>
-        {{ content }}
-    </body>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>{{pageTitle}}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                {{pageTitle}}
+            </div>
+            <div class="col-sm-12">
+                {{content}}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
 </html>

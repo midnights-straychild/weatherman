@@ -16,5 +16,9 @@
         "peakchen90.open-html-in-browser",
         "webstp.extension-manager",
         "zhuangtongfa.Material-theme"
-    ]
+    ],
+    "path-intellisense.mappings": {
+        "/js": "${workspaceRoot}/htdocs/js",
+        "/css": "${workspaceRoot}/htdocs/css"
+    }
 }

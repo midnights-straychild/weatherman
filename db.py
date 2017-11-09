@@ -2,8 +2,6 @@
 import psycopg2
 
 def connect():
-    """ Connect to DB """
-    print "connect"
     connection = psycopg2.connect("dbname=weatherman user=postgres password=postgres")
 
     return connection
