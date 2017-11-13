@@ -1,8 +1,11 @@
+from src.config import Config
 """ Postgres """
 import psycopg2
 
 def connect():
-    connection = psycopg2.connect("dbname=weatherman user=postgres password=postgres")
+    config = Config()
+
+    connection = psycopg2.connect("dbname="+config.get('db.database')+" user="+config.get('db.username')+" password="+config.get('db.password'))
 
     return connection
 

@@ -6,6 +6,8 @@ PostgreSQL 9.3
 
 ## Setup
 
+python -m pip install psycopg2 flask
+
 Run cli.py
 
 ## IDE Setup

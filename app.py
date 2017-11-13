@@ -1,13 +1,12 @@
 #!/usr/bin/python
 
-import db
 import os.path
-from flask import Flask, render_template, Response
+from src.config import Config
+import src.db as db
+from flask import Flask, render_template, Response, url_for
 
 class Weatherman:
-    context = {
-        "pageTitle": "Weatherman"
-    }
+    config = Config()
 
     def __init__(self, port=80):
         self.port = port
@@ -18,11 +17,12 @@ class Weatherman:
         self.initFlask()
 
     def returnContext(self):
-        return self.context.copy()
+        context = self.config.get('labels').copy()
+        context['dbversion'] = db.version(db.connect())
+        return context
 
     def root_dir(self):  # pragma: no cover
         return os.path.abspath(os.path.dirname(__file__))
-
 
     def get_file(self, filename):  # pragma: no cover
         try:
@@ -37,7 +37,6 @@ class Weatherman:
             return str(exc)
 
     def initFlask(self):
-        
         """ Init Web Layer """
         app = Flask(__name__)
 
@@ -46,7 +45,7 @@ class Weatherman:
         def index():
             context = self.returnContext()
             context.update({
-                "content": db.version(db.connect())
+                "content": render_template('content/__index__.html', **context)
             })
 
             return render_template('index.html', **context)
@@ -55,28 +54,14 @@ class Weatherman:
         def cakes():
             context = self.returnContext()
             context.update({
-                "content": "Weeeee!"
+                "content": render_template('content/cakes.html', **context)
             })
 
             return render_template('index.html', **context)
 
-        # Serves Static files
-        @app.route('/', defaults={'path': '/'})
-        @app.route('/<path:path>')
-        def get_resource(path):  # pragma: no cover
-            mimetypes = {
-                ".css": "text/css",
-                ".html": "text/html",
-                ".js": "application/javascript",
-            }
-            complete_path = os.path.join(self.root_dir(), "htdocs/" + path)
-            ext = os.path.splitext(path)[1]
-            mimetype = mimetypes.get(ext, "text/html")
-            content = self.get_file(complete_path)
-            return Response(content, mimetype=mimetype)
-
         if __name__ == '__main__':
             app.run(debug=True, host='0.0.0.0')
+
 
 weatherman = Weatherman()
 
