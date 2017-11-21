@@ -6,13 +6,27 @@ PostgreSQL 9.3
 
 ## Setup
 
+### Python dependencies
+
 python -m pip install psycopg2 flask
 
-Run cli.py
+### Init Database
+
+python cli.py
+
+### Web layer dependencies
+
+npm install
+
+grunt dist
+
+## Start Application
+
+python app.py
 
 ## IDE Setup
 
-Install webstp.extension-manager and do "Install Missing Extensions".
+
 
 ## Resources
 

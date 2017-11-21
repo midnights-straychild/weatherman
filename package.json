@@ -1,0 +1,29 @@
+{
+  "name": "weatherman",
+  "version": "1.0.0",
+  "description": "PostgreSQL 9.3",
+  "main": "app.py",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "popper.js": "^1.12.9",
+    "vue": "^2.5.8"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/midnights-straychild/weatherman.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/midnights-straychild/weatherman/issues"
+  },
+  "homepage": "https://github.com/midnights-straychild/weatherman#readme"
+}
