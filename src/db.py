@@ -1,18 +1,25 @@
 from src.config import Config
 """ Postgres """
 import psycopg2
+import dbms
 
-def connect():
-    config = Config()
+class DB:
+    connection = None
 
-    connection = psycopg2.connect("dbname="+config.get('db.database')+" user="+config.get('db.username')+" password="+config.get('db.password'))
+    def connect(self):
+        """ Returns db connection """
+        if(self.connection is None):
+            config = Config()
 
-    return connection
+            #self.connection = psycopg2.connect("dbname="+config.get('db.database')+" user="+config.get('db.username')+" password="+config.get('db.password'))
+            self.connection = dbms.connect.postgres(config.get('db.username'),config.get('db.password'),config.get('db.database'))
+            
+        return self.connection
 
-def version(connection):
-    """ Returns Version """
-    cursor = connection.cursor()
+    def version(self):
+        """ Returns Version """
+        cursor = self.connect().cursor()
 
-    cursor.execute('SELECT version()')
+        cursor.execute('SELECT version()')
 
-    return cursor.fetchone()
+        return cursor.fetchone()[0]

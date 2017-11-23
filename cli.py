@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import sys
-import src.db
+from src.db import DB
 
 def main():
     try:
@@ -8,14 +8,14 @@ def main():
     except IndexError:
         function = "do all"
 
-    print "You have chosen to " + function
+    print("You have chosen to " + function)
 
     if function is "initdb":
-        print "init db"
+        print("init db")
         initdb()
         
     elif function is "inittestdata":
-        print "init testdata"
+        print("init testdata")
         inittestdata()
     else:
         initdb()
@@ -30,6 +30,7 @@ def inittestdata():
 def importDumpFromPath(path):
     dump = readFile(path)
     commands = dump.split('\n\n')
+    db = DB()
     connection = db.connect()
     cursor = connection.cursor()
     for command in commands:

@@ -11,26 +11,26 @@
     <link rel="stylesheet" href="static/css/libs/bootstrap-theme.min.css">
     <link rel="stylesheet" href="static/css/libs/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/main.css">
+
+    <script src="static/js/libs/jquery.min.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                {{pageTitle}}
+                <h1>{{pageTitle}}</h1>
             </div>
             <div class="col-sm-12">
-                {{content}}
+                {% block body %}{% endblock %}
             </div>
         </div>
     </div>
     
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="static/js/libs/jquery.min.js"></script>
     <script src="static/js/libs/popper.min.js"></script>
     <script src="static/js/libs/bootstrap.min.js"></script>
     <script src="static/js/libs/vue.min.js"></script>
+    <script src="static/js/libs/Chart.min.js"></script>
 </body>
 
 </html>

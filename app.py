@@ -2,7 +2,7 @@
 
 import os.path
 from src.config import Config
-import src.db as db
+from src.db import DB
 from flask import Flask, render_template, Response, url_for
 
 class Weatherman:
@@ -18,7 +18,11 @@ class Weatherman:
 
     def returnContext(self):
         context = self.config.get('labels').copy()
-        context['dbversion'] = db.version(db.connect())
+        Db = DB()
+        context.update({
+            'dbversion': Db.version()
+        })
+
         return context
 
     def root_dir(self):  # pragma: no cover
@@ -44,20 +48,14 @@ class Weatherman:
         @app.route('/')
         def index():
             context = self.returnContext()
-            context.update({
-                "content": render_template('content/__index__.html', **context)
-            })
 
-            return render_template('index.html', **context)
+            return render_template('content/__index__.html', **context)
 
         @app.route('/cakes')
         def cakes():
             context = self.returnContext()
-            context.update({
-                "content": render_template('content/cakes.html', **context)
-            })
-
-            return render_template('index.html', **context)
+            
+            return render_template('content/cakes.html', **context)
 
         if __name__ == '__main__':
             app.run(debug=True, host='0.0.0.0')

@@ -14,13 +14,14 @@ module.exports = function(grunt) {
                 './popper.js/dist/popper.min.js.map',
                 './bootstrap/dist/js/bootstrap.min.js',
                 './vue/dist/vue.js',
-                './vue/dist/vue.min.js'
+                './vue/dist/vue.min.js',
+                './chart.js/dist/Chart.min.js'
             ]
         },
         css: {
             expand: true,
             cwd: './node_modules',
-            dest: './static/css/lib/',
+            dest: './static/css/libs/',
             flatten: true,
             filter: 'isFile',
             src: [
