@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
 import os.path
+import json
 from pathlib import Path
 from src.config import Config
 from src.db import DB
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 class Weatherman:
     config = Config()
@@ -17,14 +18,33 @@ class Weatherman:
         print("init")
         self.initFlask()
 
+    def current_page_name(self):
+        for link in self.config.get('navigation').copy():
+            if request.path == link.get('url'):
+                return link.get('name')
+       
+        return ''
+
     def returnContext(self):
         context = self.config.get('labels').copy()
         Db = DB()
         context.update({
-            'dbversion': Db.version()
+            'dbversion': Db.version(),
+            'sensorData': self.format_sensordata(),
+            'navigation': self.config.get('navigation').copy(),
+            'currentPage': ' - ' + self.current_page_name()
         })
 
         return context
+
+    def format_sensordata(self):
+        Db = DB()
+        
+        data = []
+
+        for e in Db.get_sensordata_by_sensor(1):
+            data.append([e.timestamp.timestamp(), e.value])
+        return json.dumps(data)
 
     def root_dir(self):  # pragma: no cover
         return os.path.abspath(os.path.dirname(__file__))
@@ -55,8 +75,8 @@ class Weatherman:
         @app.route('/<path:path>')
         def catch_all(path):
             context = self.returnContext()
-            fspath = './content/'+path+'.html'
-            if os.path.isfile(fspath):
+            fspath = 'content/'+path+'.html'
+            if os.path.isfile('./templates/'+fspath):
                 return render_template(fspath, **context)
             else:
                 return render_template('error.html', **context), 404

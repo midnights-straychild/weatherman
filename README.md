@@ -31,3 +31,7 @@ python app.py
 ## Resources
 
 https://projects.raspberrypi.org/en/projects/python-web-server-with-flask
+
+### Chart: 
+
+http://www.flotcharts.org/flot/examples/axes-time/index.html

@@ -5,7 +5,17 @@ class Config:
         },
         "db.database": "weatherman",
         "db.username": "postgres",
-        "db.password": "postgres"
+        "db.password": "postgres",
+        "navigation": [
+            {
+                "url": "/",
+                "name": "Home"
+            },
+            {
+                "url": "/cakes",
+                "name": "Cakes"
+            }
+        ]
     }
 
     def get_config(self):

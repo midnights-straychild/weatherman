@@ -8,7 +8,7 @@ CREATE TABLE sensors (
     sensortype_id INTEGER NOT NULL
 );
 
-CREATE TABLE sensorstypes (
+CREATE TABLE sensortypes (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
@@ -16,5 +16,6 @@ CREATE TABLE sensorstypes (
 CREATE TABLE sensordata (
     id SERIAL PRIMARY KEY,
     sensor_id INTEGER NOT NULL,
-    value VARCHAR(255) NOT NULL
+    value FLOAT NOT NULL,
+    timestamp TIMESTAMP
 );

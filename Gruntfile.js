@@ -15,7 +15,8 @@ module.exports = function(grunt) {
                 './bootstrap/dist/js/bootstrap.min.js',
                 './vue/dist/vue.js',
                 './vue/dist/vue.min.js',
-                './chart.js/dist/Chart.min.js'
+                './flot/jquery.flot.js',
+                './flot/jquery.flot.time.js'
             ]
         },
         css: {

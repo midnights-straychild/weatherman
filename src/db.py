@@ -23,3 +23,20 @@ class DB:
         cursor.execute('SELECT version()')
 
         return cursor.fetchone()[0]
+
+    def get_sensors(self):
+        return self.query_all('SELECT * FROM sensors')
+
+    def get_sensordata(self):
+        return self.query_all('SELECT * FROM sensordata')
+
+    def get_sensortypes(self):
+        return self.query_all('SELECT * FROM sensortypes')
+
+    def get_sensordata_by_sensor(self, sensor_id):
+        return self.query_all('SELECT * FROM sensordata WHERE sensor_id = %s', (sensor_id, ))
+
+    def query_all(self, query, params = None):
+        cursor = self.connect().cursor()
+        cursor.execute(query, params)
+        return cursor.fetchall()
