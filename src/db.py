@@ -49,7 +49,7 @@ class DB:
             cursor.execute(query, params)
             self.connection.commit()
             return cursor.statusmessage
-        except(Exception, e):
+        except(Exception, e) as e:
             self.connection.rollback()
             return errorcodes.lookup(e.pgcode)
         

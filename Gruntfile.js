@@ -13,8 +13,6 @@ module.exports = function(grunt) {
                 './popper.js/dist/popper.min.js',
                 './popper.js/dist/popper.min.js.map',
                 './bootstrap/dist/js/bootstrap.min.js',
-                './vue/dist/vue.js',
-                './vue/dist/vue.min.js',
                 './flot/jquery.flot.js',
                 './flot/jquery.flot.time.js'
             ]

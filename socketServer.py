@@ -1,7 +1,6 @@
 import socketserver
 from src.db import DB
 
-
 class WeatherTCPHandler(socketserver.BaseRequestHandler):
     """
     The request handler class for our server.
@@ -10,7 +9,6 @@ class WeatherTCPHandler(socketserver.BaseRequestHandler):
     override the handle() method to implement communication to the
     client.
     """
-
     def handle(self):
         # self.request is the TCP socket connected to the client
         self.data = str(self.request.recv(1024), "utf-8").strip()
@@ -28,13 +26,15 @@ class WeatherTCPHandler(socketserver.BaseRequestHandler):
         print(mode)
         print(values)
 
+        # Current accepted format "<mode>|<sensor_id>;<value>"
+        # mode = input|get
         if mode == 'input':
             print('Mode:' + mode)
             sensor_id, value = values.split(';')
             print('Values:' + sensor_id + ' ' + value)
             status = dbcur.set_sensordata_by_sensor(sensor_id, value)
 
-        self.request.sendall(status.encode())
+        self.request.sendall(status.decode('UTF-8').encode())
 
 
 if __name__ == "__main__":
