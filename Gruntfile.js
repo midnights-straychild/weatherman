@@ -1,3 +1,5 @@
+const webpackConfig = require('./webpack.config.js');
+
 module.exports = function(grunt) {
   grunt.initConfig({
     copy: {
@@ -40,12 +42,20 @@ module.exports = function(grunt) {
                 './bootstrap/dist/fonts/*'
             ]
         }
+    },
+    webpack: {
+      options: {
+        stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+      },
+      prod: webpackConfig,
+      dev: Object.assign({ watch: true }, webpackConfig)
     }
   });
 
-  grunt.task.registerTask('dist', ['copy']);
+  grunt.task.registerTask('dist', ['copy', 'webpack:dev']);
 
   grunt.task.registerTask('default', ['dist']);
-  
+
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-webpack');
 }
