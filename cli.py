@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import sys
-from src.db import DB
+from app.db import DB
 
 def main():
     try:

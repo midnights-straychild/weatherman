@@ -3,7 +3,7 @@ import dbms
 import psycopg2
 from dbms import utils
 from psycopg2 import errorcodes,extras
-from src.config import Config
+from app.config import Config
 
 
 class DB:

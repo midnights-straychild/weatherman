@@ -1,5 +1,5 @@
 import socketserver
-from src.db import DB
+from app.db import DB
 
 class WeatherTCPHandler(socketserver.BaseRequestHandler):
     """

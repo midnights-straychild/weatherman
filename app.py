@@ -3,8 +3,8 @@
 import os.path
 import json
 from pathlib import Path
-from src.config import Config
-from src.db import DB
+from app.config import Config
+from app.db import DB
 from flask import Flask, render_template, request
 
 class Weatherman:
