@@ -5,9 +5,10 @@ matrix:
       install:
         - pip install -r requirements.txt
     - language: node_js
-      node_js:
-        - "iojs"
-        - "8"
+      node_js: 8
+      cache:
+        directories:
+          - "node_modules"
       install:
         - npm install
         - grunt dist
