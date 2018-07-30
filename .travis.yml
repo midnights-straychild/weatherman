@@ -10,3 +10,4 @@ matrix:
         - "10"
       install:
         - npm install
+        - grunt dist
