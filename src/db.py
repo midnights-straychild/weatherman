@@ -2,13 +2,13 @@
 import dbms
 import psycopg2
 from dbms import utils
-from psycopg2 import errorcodes,extras
-from src.config import Config
+from psycopg2 import errorcodes, extras
 
+from src.config import Config
 
 class DB:
     connection = None
-
+    
     def connect(self):
         """ Returns db connection """
         if self.connection is None:
@@ -18,7 +18,6 @@ class DB:
         return self.connection
 
     def version(self):
-        """ Returns Version """
         cursor = self.connect().cursor()
 
         cursor.execute('SELECT version()')

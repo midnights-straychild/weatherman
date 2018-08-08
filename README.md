@@ -8,7 +8,7 @@ PostgreSQL 9.3
 
 ### Python dependencies
 
-python -m pip install psycopg2 flask dbms
+python -m pip install psycopg2 flask dbms sqlalchemy
 
 ### Init Database
 
