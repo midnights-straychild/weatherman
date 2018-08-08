@@ -2,7 +2,8 @@
 import dbms
 import psycopg2
 from dbms import utils
-from psycopg2 import errorcodes, extras
+from psycopg2 import errorcodes,extras
+from app.config import Config
 
 from src.config import Config
 
@@ -48,7 +49,7 @@ class DB:
             cursor.execute(query, params)
             self.connection.commit()
             return cursor.statusmessage
-        except(Exception, e):
+        except(Exception, e) as e:
             self.connection.rollback()
             return errorcodes.lookup(e.pgcode)
         
