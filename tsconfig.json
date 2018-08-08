@@ -5,6 +5,22 @@
     "module": "es6",
     "target": "es5",
     "jsx": "react",
-    "allowJs": true
+    "allowJs": true,
+    "noImplicitAny": true,
+    "removeComments": true
+  },
+    "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src/*"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "isolatedModules": true,
+    "forceIsolatedModules": true,
+    "useCache": true,
+    "reportFiles": [
+      "src/js/**/*.{ts,tsx}"
+    ]
   }
 }
