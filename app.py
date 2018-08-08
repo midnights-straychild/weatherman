@@ -2,6 +2,7 @@
 
 import os.path
 import json
+import datetime
 from pathlib import Path
 from app.config import Config
 from app.db import DB
@@ -36,11 +37,13 @@ class Weatherman:
         def utility_processor():
             def get_sensordata(sensor_id = 1):
 
-                data = []
+                data = self.db.get_sensordata_by_sensor(sensor_id)
 
-                for e in self.db.get_sensordata_by_sensor(sensor_id):
-                    data.append([e.timestamp.timestamp() * 1000, e.value])
-                return json.dumps(data) or '[]'
+                def default(o):
+                    if type(o) is datetime.date or type(o) is datetime.datetime:
+                        return o.isoformat()
+
+                return json.dumps(data, default=default, indent=2) or '[]'
 
             def current_page_name():
                 for link in self.config.get('navigation').copy():
@@ -50,7 +53,7 @@ class Weatherman:
                 return ''
 
             def get_sensors():
-                return json.dumps(self.db.get_sensors())
+                return json.dumps(self.db.get_sensors(), indent=2)
 
             return dict(
                 get_sensordata=get_sensordata,

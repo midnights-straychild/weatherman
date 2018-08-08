@@ -1,39 +1,51 @@
 import 'flot';
 import '../../../../node_modules/flot/jquery.flot.time';
-import { Module } from '../Modules';
+import { Module } from '../../common/Module';
+import { SensorData } from '../../@types/sensor';
 
 export class Chart extends Module {
-    constructor() {
-        super();
+    public static SELECTOR: string = '.chart';
+
+    constructor(context: JQuery) {
+        super(context);
+    }
+
+    public static instance(context: JQuery): Chart {
+        return new Chart(context);
     }
 
     public init() {
-        $(document).ready(function () {
-            const oneWeekAgo = new Date();
-            oneWeekAgo.setDate(oneWeekAgo.getDate() - 3);
+        $.plot(this.getContext(), [this.getData()], this.getOptions());
+    }
 
-            const options = {
-                series: {
-                    lines: {show: true},
-                    points: {show: true}
-                },
-                xaxis: {
-                    mode: 'time',
-                    tickSize: [1, 'hour'],
-                    timeformat: '%H:%M %d.%m',
-                    // min: oneWeekAgo.getTime(),
-                    // max: (new Date()).getTime()
-                },
-                yaxis: {
-                    minTickSize: [10],
-                    tickFormatter: (number: number, object: any) => {
-                        return number + '°C';
-                    }
+    public getOptions(): jquery.flot.plotOptions {
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 3);
+
+        const options: jquery.flot.plotOptions = {
+            series: {
+                lines: {show: true},
+                points: {show: true}
+            },
+            xaxis: {
+                mode: 'time',
+                tickSize: [1, 'hour'],
+                timeformat: '%H:%M %d.%m',
+                // min: oneWeekAgo.getTime(),
+                // max: (new Date()).getTime()
+            },
+            yaxis: {
+                minTickSize: [10],
+                tickFormatter: (number: number, object: any) => {
+                    return number + '°C';
                 }
-            };
+            }
+        };
 
-            $.plot($('#chart'), [$('#chart').data('points')], options);
-            $.plot($('#chart2'), [$('#chart2').data('points')], options);
-        });
+        return options;
+    }
+
+    public getData(): Array<SensorData> {
+        return JSON.parse(this.getContext().data('points')) as Array<SensorData>;
     }
 }

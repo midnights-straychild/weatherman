@@ -2,6 +2,6 @@
 <h2>Weeee!</h2>
 
 <h3>Charts!</h3>
-<div id="chart" style="width: 800px; height: 400px;" data-sensors="{{ get_sensors()|safe }}" data-points="{{ get_sensordata(1)|safe }}"></div>
-<div id="chart2" style="width: 800px; height: 400px;" data-sensors="{{ get_sensors()|safe }}" data-points="{{ get_sensordata(2)|safe }}"></div>
+<div class="chart" style="width: 800px; height: 400px;" data-sensors="{{ get_sensors()|safe|forceescape }}" data-points="{{ get_sensordata(1)|safe|forceescape }}"></div>
+<div class="chart" style="width: 800px; height: 400px;" data-sensors="{{ get_sensors()|safe|forceescape }}" data-points="{{ get_sensordata(2)|safe|forceescape }}"></div>
 {% endblock %}

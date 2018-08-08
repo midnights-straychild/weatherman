@@ -1,8 +1,6 @@
 """ DBMS """
 import dbms
-import psycopg2
 from dbms import utils
-from psycopg2 import errorcodes,extras
 from app.config import Config
 
 class DB:
@@ -27,16 +25,16 @@ class DB:
         return self.query_all('SELECT id, sensor_name, sensortype_id FROM sensors;')
 
     def get_sensordata(self):
-        return self.query_all('SELECT * FROM sensordata')
+        return self.query_all('SELECT sensor_id, value, timestamp FROM sensordata')
 
     def get_sensortypes(self):
         return self.query_all('SELECT * FROM sensortypes')
 
     def get_sensordata_by_sensor(self, sensor_id):
-        return self.query_all('SELECT * FROM sensordata WHERE sensor_id = %s', (sensor_id, ))
+        return self.query_all('SELECT sensor_id, value, timestamp FROM sensordata WHERE sensor_id = %s ORDER BY timestamp DESC', (sensor_id, ))
 
     def query_all(self, query, params=None):
-        cursor = self.connect().cursor()
+        cursor = self.connect().cursor(cursorType=dbms.cursors.OrderedDictCursor)
         cursor.execute(query, params)
         return cursor.fetchall()
 
@@ -49,7 +47,7 @@ class DB:
             return cursor.statusmessage
         except(Exception, e) as e:
             self.connection.rollback()
-            return errorcodes.lookup(e.pgcode)
+            return e
         
     def set_sensordata_by_sensor(self, sensor_id, value):
         return self.upsert(

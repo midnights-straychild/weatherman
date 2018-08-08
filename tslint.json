@@ -40,34 +40,6 @@
         "trace",
         "log"
       ],
-      "no-cross-import": [
-        true,
-        {
-          "root": "src",
-          "ignoredSources": [
-            "Spec\\.ts$"
-          ],
-          "allowed": {
-            "frontend": [
-              "common",
-              "mvcore"
-            ],
-            "background": [
-              "common"
-            ],
-            "common": [],
-            "mvcore": [
-              "common"
-            ],
-            "boot": [
-              "common",
-              "mvcore",
-              "frontend",
-              "background"
-            ]
-          }
-        }
-      ],
       "no-construct": true,
       "no-debugger": true,
       "no-duplicate-variable": true,
