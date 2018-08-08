@@ -1,0 +1,4 @@
+Weatherman
+psycopg2
+flask
+dbms
