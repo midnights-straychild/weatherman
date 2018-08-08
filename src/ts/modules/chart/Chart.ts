@@ -15,12 +15,12 @@ export class Chart extends Module {
     }
 
     public init() {
-        $.plot(this.getContext(), [this.getData()], this.getOptions());
+        $.plot(this.getContext(), [this.getData().map(x => {return [ x.timestamp, x.value]; })], this.getOptions());
     }
 
     public getOptions(): jquery.flot.plotOptions {
         const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(oneWeekAgo.getDate() - 3);
+        oneWeekAgo.setFullYear(2017);
 
         const options: jquery.flot.plotOptions = {
             series: {
@@ -29,14 +29,14 @@ export class Chart extends Module {
             },
             xaxis: {
                 mode: 'time',
-                tickSize: [1, 'hour'],
-                timeformat: '%H:%M %d.%m',
-                // min: oneWeekAgo.getTime(),
-                // max: (new Date()).getTime()
+                tickSize: [1, 'month'],
+                timeformat: '%b %y',
+                min: oneWeekAgo.getTime(),
+                max: (new Date()).getTime()
             },
             yaxis: {
                 minTickSize: [10],
-                tickFormatter: (number: number, object: any) => {
+                tickFormatter: (number: number, object: jquery.flot.axis) => {
                     return number + '°C';
                 }
             }
@@ -46,6 +46,6 @@ export class Chart extends Module {
     }
 
     public getData(): Array<SensorData> {
-        return JSON.parse(this.getContext().data('points')) as Array<SensorData>;
+        return this.getContext().data('points') as Array<SensorData>;
     }
 }

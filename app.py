@@ -41,7 +41,7 @@ class Weatherman:
 
                 def default(o):
                     if type(o) is datetime.date or type(o) is datetime.datetime:
-                        return o.isoformat()
+                        return o.timestamp() * 1000
 
                 return json.dumps(data, default=default, indent=2) or '[]'
 
