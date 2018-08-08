@@ -1,11 +1,23 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "noImplicitAny": true,
-    "module": "es6",
+    "outDir": "./static/",
+    "module": "commonjs",
     "target": "es5",
     "jsx": "react",
-    "allowJs": true,
+    "typeRoots" : [
+      "./node_modules/@types/",
+      "./src/@types/"
+    ],
+    "lib": [
+      "dom",
+      "es5",
+      "es6",
+      "scripthost",
+      "es2015.promise"
+    ],
+    "declaration": true,
+    "declarationDir": "./static",
+    "sourceMap": true,
     "noImplicitAny": true,
     "removeComments": true
   },
@@ -20,7 +32,7 @@
     "forceIsolatedModules": true,
     "useCache": true,
     "reportFiles": [
-      "src/js/**/*.{ts,tsx}"
+      "src/ts/**/*.{ts,tsx}"
     ]
   }
 }

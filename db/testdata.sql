@@ -1,8 +1,8 @@
-INSERT INTO sensortypes (sensortype_id, sensortype_name) VALUES (1, 'Temperature');
+INSERT INTO sensortypes (id, sensortype_name) VALUES (1, 'Temperature');
 
-INSERT INTO sensors (sensor_id, sensor_name, sensortype_id) VALUES (1, 'Keller', 1);
-INSERT INTO sensors (sensor_id, sensor_name, sensortype_id) VALUES (2, 'Veranda', 1);
-INSERT INTO sensors (sensor_id, sensor_name, sensortype_id) VALUES (3, 'Schuppen', 1);
+INSERT INTO sensors (id, sensor_name, sensortype_id) VALUES (1, 'Keller', 1);
+INSERT INTO sensors (id, sensor_name, sensortype_id) VALUES (2, 'Veranda', 1);
+INSERT INTO sensors (id, sensor_name, sensortype_id) VALUES (3, 'Schuppen', 1);
 
 INSERT INTO sensordata (sensor_id, value, timestamp) VALUES (1, 20.4, to_timestamp(1511897475));
 INSERT INTO sensordata (sensor_id, value, timestamp) VALUES (1, 19.2, to_timestamp(1511897475 + 1000));

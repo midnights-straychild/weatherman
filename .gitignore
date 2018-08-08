@@ -104,10 +104,10 @@ ENV/
 .mypy_cache/
 
 # node
-node_modules
+node_modules/
 
 # vendor dirs
+static/
 
-static/css/libs
-static/js/libs
-static/fonts/glyphicons-halflings-regular.*
+.awcache/
+reports/

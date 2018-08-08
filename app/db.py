@@ -5,8 +5,6 @@ from dbms import utils
 from psycopg2 import errorcodes,extras
 from app.config import Config
 
-from src.config import Config
-
 class DB:
     connection = None
     
@@ -26,7 +24,7 @@ class DB:
         return cursor.fetchone()[0]
 
     def get_sensors(self):
-        return self.query_all('SELECT sensor_id, sensor_name, sensortype_id FROM sensors;')
+        return self.query_all('SELECT id, sensor_name, sensortype_id FROM sensors;')
 
     def get_sensordata(self):
         return self.query_all('SELECT * FROM sensordata')
@@ -55,6 +53,6 @@ class DB:
         
     def set_sensordata_by_sensor(self, sensor_id, value):
         return self.upsert(
-            'INSERT INTO sensordata (sensor_id, value, timestamp) VALUES (%s, %s, now());',
+            'INSERT INTO sensordata (id, value, timestamp) VALUES (%s, %s, now());',
             (sensor_id, value, )
         )

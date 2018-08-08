@@ -8,12 +8,36 @@ const {CheckerPlugin} = require('awesome-typescript-loader');
 
 module.exports = {
     //context: __dirname + '/src',
-    entry: __dirname + '/src/js/index.ts',
+    entry: {
+        'main': [
+            __dirname + '/src/ts/main.ts',
+            __dirname + '/src/sass/main.sass',
+        ]
+    },
     module: {
         rules: [
             {
+                test: /\.ts$/,
+                enforce: 'pre',
+                loader: 'tslint-loader',
+                options: {
+                    configFile: './tslint.json',
+                    tsConfigFile: './tsconfg.json',
+                    emitErrors: false,
+                    typeCheck: false,
+                    failOnHint: false,
+                    fix: true,
+                    formatter: 'pmd',
+                    fileOutput: {
+                        dir: './reports/tslint/',
+                        ext: 'xml',
+                        clean: true,
+                    }
+                }
+            },
+            {
                 test: /\.sass$/,
-                use: 'fast-sass-loader'
+                use:['style-loader', 'css-loader', 'fast-sass-loader']
             },
             {
                 test: /\.tsx?$/,
@@ -31,7 +55,7 @@ module.exports = {
     ],
     resolve: {
         descriptionFiles: ['package.json'],
-        modules: ['node_modules'],
+        modules: ['node_modules', 'src/ts/modules'],
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.css']
     },
     output: {
