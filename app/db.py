@@ -1,6 +1,5 @@
 """ DBMS """
 import dbms
-from dbms import utils
 from app.config import Config
 
 class DB:
@@ -45,7 +44,7 @@ class DB:
             cursor.execute(query, params)
             self.connection.commit()
             return cursor.statusmessage
-        except(Exception, e) as e:
+        except(Exception) as e:
             self.connection.rollback()
             return e
         

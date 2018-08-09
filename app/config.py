@@ -14,6 +14,10 @@ class Config:
             {
                 "url": "/cakes",
                 "name": "Cakes"
+            },
+            {
+                "url": "/mqtt",
+                "name": "MQTT"
             }
         ]
     }

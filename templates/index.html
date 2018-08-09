@@ -18,7 +18,7 @@
             <div class="col-sm-12 navigation">
                 {% for link in navigation %}
                 <a href="{{ link.url }}" class="link {% if request.path == link.url %}active{% endif %}">{{ link.name }}</a>
-              {% endfor %}
+                {% endfor %}
             </div>
             <div class="col-sm-12">
                 {% block body %}{% endblock %}
