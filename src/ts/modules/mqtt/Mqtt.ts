@@ -1,11 +1,15 @@
 import {connect} from 'mqtt';
-import {Module} from '../Modules';
+import {Module} from '../../common/Module';
 
 export class Mqtt extends Module {
+    public static SELECTOR: string = '.mqtt';
+
     constructor(context: JQuery) {
         super(context);
+    }
 
-        this.init();
+    public static instance(context: JQuery): Mqtt {
+        return new Mqtt(context);
     }
 
     public init() {
@@ -13,6 +17,7 @@ export class Mqtt extends Module {
 
         client.on('connect', () => {
             client.subscribe('presence');
+            client.subscribe('button/+');
             client.publish('presence', 'Hello mqtt');
         });
 
@@ -25,16 +30,10 @@ export class Mqtt extends Module {
                 // message is Buffer
                 console.log(message.toString());
 
-                this.getContext().find('.receive-message').html(topic.toString() + ': ' + message.toString());
+                this.getContext().find('.receive-message').append(topic.toString() + ': ' + message.toString() + '<br/>');
 
                 // client.end();
             }
         );
     }
 }
-
-$(document).ready(() => {
-    $('.mqtt').each((i: number, element: HTMLElement): void => {
-        new Mqtt($(element));
-    });
-});
