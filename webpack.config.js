@@ -5,14 +5,16 @@ const webpack = require('webpack');
 // We need this plugin to detect a `--watch` mode. It may be removed later
 // after https://github.com/webpack/webpack/issues/3460 will be resolved.
 const {CheckerPlugin} = require('awesome-typescript-loader');
+const PolyfillInjectorPlugin = require('webpack-polyfill-injector');
 
 module.exports = {
     //context: __dirname + '/src',
     entry: {
-        'main': [
-            __dirname + '/src/ts/main.ts',
-            __dirname + '/src/sass/main.sass',
-        ]
+        main: `webpack-polyfill-injector?${JSON.stringify({
+            modules: [
+                __dirname + '/src/ts/main.ts',
+                __dirname + '/src/sass/main.sass',] // list your entry modules for the `app` entry chunk
+        })}!` // don't forget the trailing exclamation mark!
     },
     module: {
         rules: [
@@ -37,7 +39,7 @@ module.exports = {
             },
             {
                 test: /\.sass$/,
-                use:['style-loader', 'css-loader', 'fast-sass-loader']
+                use: ['style-loader', 'css-loader', 'fast-sass-loader']
             },
             {
                 test: /\.tsx?$/,
@@ -51,6 +53,12 @@ module.exports = {
             '$': 'jquery',
             'jQuery': 'jquery',
             'window.jQuery': 'jquery'
+        }),
+        new PolyfillInjectorPlugin({
+            polyfills: [
+                'Promise',
+                'Array.prototype.find',
+            ]
         })
     ],
     resolve: {

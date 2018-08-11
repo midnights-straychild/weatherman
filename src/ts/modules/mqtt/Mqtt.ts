@@ -1,5 +1,6 @@
 import {connect} from 'mqtt';
 import {Module} from '../../common/Module';
+require('../../../../node_modules/text-encoding/lib/encoding.js');
 
 export class Mqtt extends Module {
     public static SELECTOR: string = '.mqtt';
@@ -18,6 +19,7 @@ export class Mqtt extends Module {
         client.on('connect', () => {
             client.subscribe('presence');
             client.subscribe('button/+');
+            client.subscribe('sensornode/1/+');
             client.publish('presence', 'Hello mqtt');
         });
 
@@ -27,13 +29,15 @@ export class Mqtt extends Module {
         });
 
         client.on('message', (topic, message) => {
-                // message is Buffer
                 console.log(message.toString());
-
-                this.getContext().find('.receive-message').append(topic.toString() + ': ' + message.toString() + '<br/>');
-
+                this.getContext().find('.receive-message')
+                    .append(topic.toString() + ': ' + this.uint8arrayToString(message) + '<br/>');
                 // client.end();
             }
         );
+    }
+
+    public uint8arrayToString(array: Uint8Array) {
+        return new TextDecoder('utf-8').decode(array);
     }
 }
