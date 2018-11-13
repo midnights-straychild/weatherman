@@ -11,11 +11,14 @@ export class Chart extends Module {
     }
 
     public static instance(context: JQuery): Chart {
-        return new Chart(context);
+        return new
+        Chart(context);
     }
 
     public init() {
-        $.plot(this.getContext(), [this.getData().map(x => {return [ x.timestamp, x.value]; })], this.getOptions());
+        $.plot(this.getContext(), [this.getData().map(x => {
+            return [x.timestamp, x.value];
+        })], this.getOptions());
     }
 
     public getOptions(): jquery.flot.plotOptions {

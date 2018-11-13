@@ -18,7 +18,7 @@ python cli.py
 
 npm install
 
-grunt dist
+grunt start
 
 ## Start Application
 

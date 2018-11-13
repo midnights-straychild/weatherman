@@ -7,24 +7,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="static/bundle.js" async></script>
+    <link href="static/bundle.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h1>{{pageTitle}}</h1>
-            </div>
-            <div class="col-sm-12 navigation">
-                {% for link in navigation %}
-                <a href="{{ link.url }}" class="link {% if request.path == link.url %}active{% endif %}">{{ link.name }}</a>
-                {% endfor %}
-            </div>
-            <div class="col-sm-12">
-                {% block body %}{% endblock %}
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>{{pageTitle}}</h1>
+        </div>
+        <div class="col-sm-12 navigation">
+            {% for link in navigation %}
+            <a href="{{ link.url }}" class="link {% if request.path == link.url %}active{% endif %}">{{ link.name }}</a>
+            {% endfor %}
+        </div>
+        <div class="col-sm-12">
+            {% block body %}{% endblock %}
         </div>
     </div>
+</div>
 </body>
 
 </html>

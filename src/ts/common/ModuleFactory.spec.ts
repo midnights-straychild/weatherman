@@ -1,6 +1,5 @@
 import {ModuleFactory, ModuleOnLoadEntry} from './ModuleFactory';
 import {Module} from './Module';
-import Expected = jasmine.Expected;
 
 describe('Module Factory', () => {
     class ExampleModule extends Module {

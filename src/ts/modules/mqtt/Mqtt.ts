@@ -1,20 +1,44 @@
 import {connect} from 'mqtt';
-import {Module} from '../../common/Module';
+import {WebComponent} from '../../common/WebComponent';
+import {Template} from '../../@types/template';
+
 require('../../../../node_modules/text-encoding/lib/encoding.js');
+const Buffer = require('buffer/').Buffer;
 
-export class Mqtt extends Module {
-    public static SELECTOR: string = '.mqtt';
+export class Mqtt extends WebComponent {
+    public static is: string = 'wm-mqtt';
 
-    constructor(context: JQuery) {
-        super(context);
+    constructor() {
+        super();
     }
 
-    public static instance(context: JQuery): Mqtt {
-        return new Mqtt(context);
+    public getTemplate(): Template {
+        return require('./mqtt.pug');
+    }
+
+    public getStyles(): string {
+        return require('./mqtt.tsass');
+    }
+
+    public uint8arrayToString(array: Uint8Array): string {
+        return new TextDecoder('iso-8859-1').decode(array);
+    }
+
+    public getInt64Bytes(x: string): number[] {
+        const bytes: number[] = [];
+        let i = 8;
+        do {
+            // @ts-ignore
+            bytes[--i] = x & (255);
+            // @ts-ignore
+            x = x >> 8;
+        } while (i);
+
+        return bytes;
     }
 
     public init() {
-        const client = connect('ws://localhost:1884');
+        const client = connect('ws://192.168.43.211:1884');
 
         client.on('connect', () => {
             client.subscribe('presence');
@@ -23,21 +47,26 @@ export class Mqtt extends Module {
             client.publish('presence', 'Hello mqtt');
         });
 
-        this.getContext().on('click', '.send-message', (event: JQuery.Event) => {
+        $(this).on('click', '.mqtt--send-message', (event: JQuery.Event) => {
             console.log('Attempting to send event');
-            client.publish('button/clicked', 'Hello again');
+            let message: string | number;
+            const topic: string = $(event.target).data('topic');
+            const value: string = $(event.target).data('value');
+
+            if (value.endsWith('|b')) {
+                message = value.substring(-2, value.length - 2);
+            } else {
+                message = value;
+            }
+
+            client.publish(topic, message);
         });
 
         client.on('message', (topic, message) => {
-                console.log(message.toString());
-                this.getContext().find('.receive-message')
-                    .append(topic.toString() + ': ' + this.uint8arrayToString(message) + '<br/>');
-                // client.end();
-            }
-        );
-    }
-
-    public uint8arrayToString(array: Uint8Array) {
-        return new TextDecoder('utf-8').decode(array);
+            console.log(message.toString());
+            $(this).find('.mqtt--receive-message')
+                .prepend(topic.toString() + ': ' + this.uint8arrayToString(message) + '<br/>');
+            // client.end();
+        });
     }
 }
