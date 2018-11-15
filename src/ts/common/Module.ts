@@ -1,13 +1,13 @@
 import { ContextAware } from './ContextAware';
 
 export class Module implements ContextAware {
-    private context: JQuery;
+    private context: HTMLElement;
 
-    constructor(context: JQuery) {
+    constructor(context: HTMLElement) {
         this.context = context;
     }
 
-    public getContext(): JQuery {
+    public getContext(): HTMLElement {
         return this.context;
     }
 }

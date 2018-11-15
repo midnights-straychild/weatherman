@@ -17,7 +17,7 @@ export class Mqtt extends WebComponent {
     }
 
     public getStyles(): string {
-        return require('./mqtt.tsass');
+        return require('./mqtt.tscss');
     }
 
     public uint8arrayToString(array: Uint8Array): string {

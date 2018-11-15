@@ -1,3 +1,3 @@
 export interface ContextAware {
-    getContext(): JQuery;
+    getContext(): HTMLElement;
 }

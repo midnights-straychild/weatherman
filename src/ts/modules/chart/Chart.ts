@@ -6,17 +6,17 @@ import { SensorData } from '../../@types/sensor';
 export class Chart extends Module {
     public static SELECTOR: string = '.chart';
 
-    constructor(context: JQuery) {
+    constructor(context: HTMLElement) {
         super(context);
     }
 
-    public static instance(context: JQuery): Chart {
+    public static instance(context: HTMLElement): Chart {
         return new
         Chart(context);
     }
 
     public init() {
-        $.plot(this.getContext(), [this.getData().map(x => {
+        $.plot($(this.getContext()), [this.getData().map(x => {
             return [x.timestamp, x.value];
         })], this.getOptions());
     }
@@ -49,6 +49,6 @@ export class Chart extends Module {
     }
 
     public getData(): Array<SensorData> {
-        return this.getContext().data('points') as Array<SensorData>;
+        return JSON.parse(this.getContext().getAttribute('data-points')) as Array<SensorData>;
     }
 }
